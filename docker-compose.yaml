@@ -1,0 +1,10 @@
+services:
+  test-dotnet-queue-publisher:
+    build:
+      context: .
+      target: production
+    image: test-dotnet-queue-publisher
+    container_name: test-dotnet-queue-publisher
+    environment:
+      AppInsights__ConnectionString: ${APPINSIGHTS_CONNECTIONSTRING}
+      AppInsights__CloudRole: test-dotnet-queue-publisher-local

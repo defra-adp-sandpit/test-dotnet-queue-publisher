@@ -1,0 +1,3 @@
+{{- include "adp-helm-library.cluster-ip-service" (list . "test-dotnet-queue-publisher.cluster-ip-service") -}}
+{{- define "test-dotnet-queue-publisher.cluster-ip-service" -}}
+{{- end -}}

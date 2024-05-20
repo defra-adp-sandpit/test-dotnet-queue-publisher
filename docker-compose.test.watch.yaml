@@ -1,0 +1,24 @@
+services:
+  test-dotnet-queue-publisher-core-tests:
+    build:
+      target: development
+    image: test-dotnet-queue-publisher-core-tests-development
+    container_name: test-dotnet-queue-publisher-core-tests
+    user: root
+    entrypoint: sh -c "cd /home/dotnet && chown -R dotnet:dotnet . && su dotnet -c 'dotnet watch --project test/Test.Dotnet.Queue.Publisher.Core.Tests/Test.Dotnet.Queue.Publisher.Core.Tests.csproj test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./test-output/'"
+    volumes:
+      - ./src/Test.Dotnet.Queue.Publisher.Core:/home/dotnet/src/Test.Dotnet.Queue.Publisher.Core
+      - ./test/Test.Dotnet.Queue.Publisher.Core.Tests:/home/dotnet/test/Test.Dotnet.Queue.Publisher.Core.Tests
+      - ./test-output:/home/dotnet/Test.Dotnet.Queue.Publisher.Core.Tests/test-output
+
+  test-dotnet-queue-publisher-api-tests:
+    build:
+      target: development
+    image: test-dotnet-queue-publisher-api-tests-development
+    container_name: test-dotnet-queue-publisher-api-tests
+    user: root
+    entrypoint: sh -c "cd /home/dotnet && chown -R dotnet:dotnet . && su dotnet -c 'dotnet watch --project test/Test.Dotnet.Queue.Publisher.Api.Tests/Test.Dotnet.Queue.Publisher.Api.Tests.csproj test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./test-output/'"
+    volumes:
+      - ./src/Test.Dotnet.Queue.Publisher.Api:/home/dotnet/src/Test.Dotnet.Queue.Publisher.Api
+      - ./test/Test.Dotnet.Queue.Publisher.Api.Tests:/home/dotnet/test/Test.Dotnet.Queue.Publisher.Api.Tests
+      - ./test-output:/home/dotnet/Test.Dotnet.Queue.Publisher.Api.Tests/test-output

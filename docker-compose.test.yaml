@@ -1,0 +1,16 @@
+services:
+  test-dotnet-queue-publisher:
+    build:
+      target: development
+    image: test-dotnet-queue-publisher-development
+    container_name: test-dotnet-queue-publisher-test
+    user: root
+    entrypoint: sh -c "cd /home/dotnet && chown -R dotnet:dotnet . && su dotnet -c 'dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=./test-output/'"
+    volumes:
+      - ./Test.Dotnet.Queue.Publisher.sln:/home/dotnet/Test.Dotnet.Queue.Publisher.sln
+      - ./src/Test.Dotnet.Queue.Publisher.Core:/home/dotnet/src/Test.Dotnet.Queue.Publisher.Core
+      - ./test/Test.Dotnet.Queue.Publisher.Core.Tests:/home/dotnet/test/Test.Dotnet.Queue.Publisher.Core.Tests
+      - ./src/Test.Dotnet.Queue.Publisher.Api:/home/dotnet/src/Test.Dotnet.Queue.Publisher.Api
+      - ./test/Test.Dotnet.Queue.Publisher.Api.Tests:/home/dotnet/test/Test.Dotnet.Queue.Publisher.Api.Tests
+      - ./test/Test.Dotnet.Queue.Publisher.Api.Tests/test-output:/home/dotnet/test/Test.Dotnet.Queue.Publisher.Api.Tests/test-output
+      - ./test/Test.Dotnet.Queue.Publisher.Core.Tests/test-output:/home/dotnet/test/Test.Dotnet.Queue.Publisher.Core.Tests/test-output
